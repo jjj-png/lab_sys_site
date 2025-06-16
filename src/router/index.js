@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../view/LoginView.vue' // ✅ 注意是 'view' 不是 'views'
+import LoginView from '../view/LoginView.vue' 
 import RegisterView from '../view/RegisterView.vue'
 
 
@@ -8,7 +8,7 @@ import SystemHome from '@/view/admin/SystemHome.vue'
 import UserManage from '@/view/admin/UsersManage.vue'
 import LabAdminManage from '@/view/admin/LabAdminManage.vue'
 import AdminStudents from '@/view/admin/AdminStudents.vue' 
-
+import NoticeView   from '@/view/admin/NoticeView.vue' 
 
 const routes = [
   {
@@ -35,7 +35,8 @@ const routes = [
         { path: 'home', name: 'SystemHome', component: SystemHome },
         { path: 'users', name: 'UserManage', component: UserManage },
         { path: 'lab-admin',name:'LabAdmin', component: LabAdminManage } ,
-        { path: '/admin/students', component: AdminStudents }
+        { path: '/admin/students', component: AdminStudents },
+        { path: 'notice',    name:'NoticeView', component: NoticeView } 
         // 预留：以后新页面直接加
         // { path: 'user', name: 'UserManage', component: () => import('@/view/admin/UserManage.vue') },
       ]
