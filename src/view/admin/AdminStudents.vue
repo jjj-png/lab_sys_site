@@ -5,7 +5,6 @@
        placeholder="搜索用户名/姓名/电话/邮箱"
        class="search"/>
 
-
     <button class="btn-add" @click="openAdd">新增学生</button>
 
     <table class="table">
@@ -15,10 +14,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-if="filtered.length === 0">
-           <td colspan="7">暂无数据</td>
+        <tr v-if="students.length === 0">
+          <td colspan="7">暂无数据</td>
         </tr>
-        <tr v-for="s in pagedList" :key="s.userId">
+          <tr v-for="s in pagedList" :key="s.userId">
           <td>{{ s.userId }}</td>
           <td>{{ s.username }}</td>
           <td>{{ s.name }}</td>
@@ -51,26 +50,32 @@
     </div>
   </div>
 
-  <div class="pager" v-if="pageTotal > 1"|| filtered.length > 0">
-  <button :disabled="pageIndex===1" @click="pageIndex--">« 上一页</button>
+<div class="pager" v-if="pageTotal > 1 || filtered.length > 0">
+  <button :disabled="pageIndex === 1" @click="pageIndex--">« 上一页</button>
   <span>第 {{ pageIndex }} / {{ pageTotal }} 页</span>
-  <button :disabled="pageIndex===pageTotal" @click="pageIndex++">下一页 »</button>
+  <button :disabled="pageIndex === pageTotal" @click="pageIndex++">下一页 »</button>
+
+  <!-- 每页数量选择 -->
+  <select v-model.number="pageSize" class="page-size">
+    <option :value="5">每页 5 条</option>
+    <option :value="8">每页 8 条</option>
+    <option :value="10">每页 10 条</option>
+    <option :value="20">每页 20 条</option>
+  </select>
 </div>
+
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed, watch } from 'vue'
 import axios from 'axios'
-import { computed } from 'vue'
-import { watch } from 'vue'
 
 const students = ref([])
 const dialog = ref(false)
 const editMode = ref(false)
 const keyword   = ref('')   // 搜索关键字
 const pageSize  = ref(8)    // 每页条数
-const pageIndex = ref(1) 
-
+const pageIndex = ref(1)    // 当前页码
 
 const form = reactive({
   userId: null,
@@ -86,7 +91,7 @@ const form = reactive({
 const load = async () => {
   const res = await axios.get('/api/user/students')
   students.value = Array.isArray(res.data.data) ? res.data.data : res.data
-  pageIndex.value = 1
+  pageIndex.value = 1 
 }
 
 const openAdd = () => {
@@ -137,6 +142,7 @@ const remove = async (id) => {
     await load()
   }
 }
+
 const filtered = computed(() => {
   if (!keyword.value) return students.value
   const kw = keyword.value.toLowerCase()
@@ -155,10 +161,10 @@ const pagedList = computed(() => {
   const start = (pageIndex.value - 1) * pageSize.value
   return filtered.value.slice(start, start + pageSize.value)
 })
-
-watch(keyword, () => {
-  pageIndex.value = 1
+watch(pageSize, () => {
+  pageIndex.value = 1 // 改变页大小后，重置到第1页
 })
+
 
 onMounted(load)
 </script>
@@ -182,6 +188,12 @@ onMounted(load)
   padding:4px 10px;border:1px solid #ccc;background:#fff;cursor:pointer;border-radius:4px;
 }
 .pager button:disabled{opacity:.4;cursor:not-allowed;}
-
+.page-size {
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  margin-left: 10px;
+  font-size: 14px;
+}
 </style>
-//lllllllll
