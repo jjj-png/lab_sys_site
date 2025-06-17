@@ -41,7 +41,11 @@ const routes = [
         { path: '/admin/students', component: AdminStudents },
         { path: 'notice',    name:'NoticeView', component: NoticeView } ,
         { path: 'category',  name: 'LabCategory',  component: LabCategory },
-        { path: 'labs', name: 'AdminLabs', component: LabListView }
+        { path: 'labs', name: 'AdminLabs', component: LabListView },
+        {
+         path: '/admin/records',
+         component: () => import('@/view/RecordsView.vue')
+        }
         // 预留：以后新页面直接加
         // { path: 'user', name: 'UserManage', component: () => import('@/view/admin/UserManage.vue') },
       ]

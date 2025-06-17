@@ -317,7 +317,7 @@ const remove = async (id) => {
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,.06);
   width: 100%;
-  margin-top:200px;
+  margin-top:100px;
 }
 
 .lab-table {
