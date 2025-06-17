@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted } from 'vue' 
 import * as echarts from 'echarts'
 import axios from 'axios'
 
