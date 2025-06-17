@@ -9,6 +9,8 @@ import UserManage from '@/view/admin/UsersManage.vue'
 import LabAdminManage from '@/view/admin/LabAdminManage.vue'
 import AdminStudents from '@/view/admin/AdminStudents.vue' 
 
+import StudentLayout from '../view/student/StudentLayout.vue'
+
 
 const routes = [
   {
@@ -24,22 +26,33 @@ const routes = [
 
   
   // 新增：/home → /admin/home
-  { path: '/home', redirect: '/admin/home' },
+  // { path: '/home', redirect: '/admin/home' },
 
   {
-      path: '/admin',
-      component: AdminLayout,
-      meta: { requiresAdmin: true },
-      children: [
-        { path: '', redirect: 'home' },           // 默认子路由
-        { path: 'home', name: 'SystemHome', component: SystemHome },
-        { path: 'users', name: 'UserManage', component: UserManage },
-        { path: 'lab-admin',name:'LabAdmin', component: LabAdminManage } ,
-        { path: '/admin/students', component: AdminStudents }
-        // 预留：以后新页面直接加
-        // { path: 'user', name: 'UserManage', component: () => import('@/view/admin/UserManage.vue') },
-      ]
-    }
+    path: '/admin',
+    component: AdminLayout,
+    meta: { requiresAdmin: true },
+    children: [
+      { path: '', redirect: 'home' },           // 默认子路由
+      { path: 'home', name: 'SystemHome', component: SystemHome },
+      { path: 'users', name: 'UserManage', component: UserManage },
+      { path: 'lab-admin',name:'LabAdmin', component: LabAdminManage } ,
+      { path: '/admin/students', component: AdminStudents }
+      // 预留：以后新页面直接加
+      // { path: 'user', name: 'UserManage', component: () => import('@/view/admin/UserManage.vue') },
+    ]
+  },
+
+  {
+    path: '/student',
+    component: StudentLayout,
+    meta: { requiresStudent: true },
+    children: [
+      { path: '', redirect: '/student/home'},
+      { path: 'home', name: 'StudentHome', component: () => import('@/view/student/StudentHome.vue') },
+      { path: 'lab-apply', name: 'StudentLabApply', component: () => import('@/view/student/StudentLabApply.vue') },
+    ]
+  }
 
 ]
 

@@ -49,6 +49,10 @@ const handleLogin = async () => {
     })
     if (res.data.code === 200) {
       message.value = '登录成功！'
+
+      localStorage.setItem('userInfo', JSON.stringify(
+        res.data.data
+      ))
       // 根据角色跳转
       if (form.role === '2') {
         router.push('/admin') // ✅ 跳转到系统管理员页面
