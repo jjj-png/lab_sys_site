@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../view/LoginView.vue' // ✅ 注意是 'view' 不是 'views'
+import LoginView from '../view/LoginView.vue' 
 import RegisterView from '../view/RegisterView.vue'
 
 
