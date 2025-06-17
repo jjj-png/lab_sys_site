@@ -9,6 +9,8 @@ import UserManage from '@/view/admin/UsersManage.vue'
 import LabAdminManage from '@/view/admin/LabAdminManage.vue'
 import AdminStudents from '@/view/admin/AdminStudents.vue' 
 import NoticeView   from '@/view/admin/NoticeView.vue' 
+import LabCategory      from '@/view/LabCategory.vue' 
+
 
 const routes = [
   {
@@ -36,7 +38,8 @@ const routes = [
         { path: 'users', name: 'UserManage', component: UserManage },
         { path: 'lab-admin',name:'LabAdmin', component: LabAdminManage } ,
         { path: '/admin/students', component: AdminStudents },
-        { path: 'notice',    name:'NoticeView', component: NoticeView } 
+        { path: 'notice',    name:'NoticeView', component: NoticeView } ,
+        { path: 'category',  name: 'LabCategory',  component: LabCategory }
         // 预留：以后新页面直接加
         // { path: 'user', name: 'UserManage', component: () => import('@/view/admin/UserManage.vue') },
       ]
