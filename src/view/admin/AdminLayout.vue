@@ -48,6 +48,7 @@ const collapsed = ref(false)
 .layout {
   display: flex;
   height: 100vh;
+  width: 100;
 }
 
 /* 侧边栏 */
@@ -132,6 +133,7 @@ nav {
   background: #f6f8fa;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .header {
@@ -147,9 +149,9 @@ nav {
   flex: 1;
   overflow: auto;
   padding: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  display: block;
+  
+  
 }
 
 </style>

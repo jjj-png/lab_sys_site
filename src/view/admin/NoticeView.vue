@@ -146,7 +146,7 @@ onMounted(load)
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* ✅ 左对齐 */
-  margin-top: -400px; 
+  margin-top: 0px; 
 }
 
 
