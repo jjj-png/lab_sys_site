@@ -1,5 +1,5 @@
 <template>
-   <div class="login-page">
+  <div class="login-page">
     <!-- 左侧小图 -->
     <div class="left-section">
       <img src="@/assets/lab-bg.png" alt="Lab" class="bg-image" />
@@ -39,7 +39,6 @@ const form = reactive({
 
 const message = ref('')
 
-
 const handleLogin = async () => {
   try {
     const res = await axios.post('/api/auth/login', {
@@ -51,7 +50,8 @@ const handleLogin = async () => {
       message.value = '登录成功！'
 
   // ✅ 保存后端返回的 token（字段视后端接口返回格式调整）
-      localStorage.setItem('token', res.data.data.token)
+  localStorage.setItem('token', res.data.data.token)
+  localStorage.setItem('userInfo', res.data.data)
 
   // 根据角色跳转
   if (form.role === '2') {
@@ -64,7 +64,7 @@ const handleLogin = async () => {
 }
  else {
       message.value = res.data.msg || '登录失败'
-    }
+  }
   } catch (error) {
     message.value = '请求出错：' + error.message
   }
@@ -73,7 +73,7 @@ const handleLogin = async () => {
 
 <style scoped>
 .login-page {
-   display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -81,7 +81,7 @@ const handleLogin = async () => {
 }
 
 .left-section {
-  width: 400px; /* 宽度与登录框相近 */
+  width: 400px;
   height: 400px;
   display: flex;
   justify-content: center;
@@ -93,14 +93,14 @@ const handleLogin = async () => {
 }
 
 .bg-image {
-   width: 100%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 12px;
 }
 
 .right-section {
-   width: 350px;
+  width: 350px;
   padding: 2rem;
   background-color: #fff;
   border-radius: 12px;
