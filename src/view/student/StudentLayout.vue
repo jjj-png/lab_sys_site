@@ -9,6 +9,9 @@
 
         <div class="group-title">预约管理</div>
         <router-link to="/student/lab-apply" class="submenu">实验室预约</router-link>
+
+        <div class="group-title">报修管理</div>
+        <router-link to="/student/repair" class="submenu">学生报修</router-link>
       </nav>
 
       <button class="collapse-btn" @click="collapsed = !collapsed">

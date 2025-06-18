@@ -61,6 +61,7 @@ const routes = [
       { path: '', redirect: '/student/home'},
       { path: 'home', name: 'StudentHome', component: () => import('@/view/student/StudentHome.vue') },
       { path: 'lab-apply', name: 'StudentLabApply', component: () => import('@/view/student/StudentLabApply.vue') },
+      { path: 'repair', name: 'StudentRepair', component: () => import('@/view/student/StudentRepair.vue') },
     ]
   }
 
