@@ -32,3 +32,15 @@ export interface ReservationInfo {
   createdAt: string,
   updatedAt: string,
 }
+
+export interface RepairInfo {
+  repairId: number,
+  userId: number,
+  labId: number,
+  repairTime: string,
+  status: number,
+  adminId: number,
+  description: string,
+  createdAt: string,
+  updatedAt: string,
+}
