@@ -1,19 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../view/LoginView.vue' // ✅ 注意是 'view' 不是 'views'
+import LoginView from '../view/LoginView.vue'
 import RegisterView from '../view/RegisterView.vue'
-
-
 import AdminLayout from '@/view/admin/AdminLayout.vue'
 import SystemHome from '@/view/admin/SystemHome.vue'
 import UserManage from '@/view/admin/UsersManage.vue'
 import LabAdminManage from '@/view/admin/LabAdminManage.vue'
-import AdminStudents from '@/view/admin/AdminStudents.vue' 
-
+import AdminStudents from '@/view/admin/AdminStudents.vue'
+import LabAdminLayout from '@/view/lab-admin/LabAdminLayout.vue' // 确保文件存在且路径正确
+import LabAdminHome from '@/view/lab-admin/LabAdminHome.vue'
+import LabInfoManage from '@/view/lab-admin/LabInfoManage.vue'
 
 const routes = [
   {
-    path: '/',             // 根路径
-    redirect: '/login'     // ✅ 设置默认跳转到 /login
+    path: '/',
+    redirect: '/login'
   },
   {
     path: '/login',
@@ -21,26 +21,32 @@ const routes = [
     component: LoginView
   },
   { path: '/register', name: 'Register', component: RegisterView },
-
-  
-  // 新增：/home → /admin/home
   { path: '/home', redirect: '/admin/home' },
-
   {
-      path: '/admin',
-      component: AdminLayout,
-      meta: { requiresAdmin: true },
-      children: [
-        { path: '', redirect: 'home' },           // 默认子路由
-        { path: 'home', name: 'SystemHome', component: SystemHome },
-        { path: 'users', name: 'UserManage', component: UserManage },
-        { path: 'lab-admin',name:'LabAdmin', component: LabAdminManage } ,
-        { path: '/admin/students', component: AdminStudents }
-        // 预留：以后新页面直接加
-        // { path: 'user', name: 'UserManage', component: () => import('@/view/admin/UserManage.vue') },
-      ]
-    }
-
+    path: '/admin',
+    component: AdminLayout,
+    meta: { requiresAdmin: true },
+    children: [
+      { path: '', redirect: 'home' },
+      { path: 'home', name: 'SystemHome', component: SystemHome },
+      { path: 'users', name: 'UserManage', component: UserManage },
+      { path: 'lab-admin', name: 'LabAdmin', component: LabAdminManage },
+      { path: '/admin/students', component: AdminStudents }
+    ]
+  },
+  {
+    path: '/lab-admin',
+    component: LabAdminLayout,
+    meta:{ requiresLabAdmin: true },
+    children: [
+      { path: '', redirect: 'home' },
+      { path: 'home', name: 'LabAdminHome', component: LabAdminHome },
+      { path: 'info-manage', name: 'LabInfoManage', component: LabInfoManage },
+      { path: 'labs', name: 'LabInfoLabs', component: LabInfoManage },
+    
+      { path: 'records', name: 'ReservationRecord', component: () => import('@/view/lab-admin/ReservationRecordManage.vue') }
+    ]
+  }
 ]
 
 const router = createRouter({
