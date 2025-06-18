@@ -42,11 +42,25 @@ onMounted(
   }
 )
 
+const getLabById = async (labId: number) => {
+  try {
+    const response = await axios.get(`/api/labs/${labId}`)
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 const updateLabStatus = async (labId: number, status: number) => {
   try {
-    const response = await axios.put(`/api/labs/${labId}`, {
-      status
-    })
+    const selectedLab = await getLabById(labId)
+    if (!selectedLab) {
+      console.error('实验室信息未找到')
+      return
+    }
+    selectedLab.status = status
+    const response = await axios.put(`/api/labs/${labId}`, selectedLab)
     console.log(response.data)
   } catch (error) {
     console.error(error)
