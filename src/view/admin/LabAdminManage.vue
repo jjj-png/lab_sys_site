@@ -49,7 +49,7 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
-import axios from 'axios'
+import request from '@/Util/request'
 
 const admins = ref([])
 const dialog = ref(false)
@@ -66,8 +66,10 @@ const form = reactive({
 })
 
 const load = async () => {
-  const res = await axios.get('/api/user/lab-admins')   // ✅
-  admins.value = Array.isArray(res.data.data) ? res.data.data : res.data
+  const res = await request.get('/user/lab-admins')   // ✅
+   admins.value = Array.isArray(res.data)
+    ? res.data                   // 直接是数组（无封装）
+    : res.data?.data ?? []      // 兼容封装结构
 }
 
 const openAdd = () => {
@@ -103,14 +105,14 @@ const save = async () => {
       /* ③ 否则用新密码，后端再决定是否加密 */
     }
 
-    await axios.put(`/api/user/${payload.userId}`, payload)
+    await request.put(`/user/${payload.userId}`, payload)
   } else {
     /* 新增时必须输入密码 */
     if (!payload.password || payload.password.trim() === '') {
       alert('密码不能为空')
       return
     }
-    await axios.post('/api/user', payload)
+    await request.post('/user', payload)
   }
 
   dialog.value = false
@@ -121,7 +123,7 @@ const save = async () => {
 
 const remove = async (id) => {
   if (confirm('确认删除？')) {
-    await axios.delete(`/api/user/${id}`)
+    await request.delete(`/user/${id}`)
     await load()
   }
 }
