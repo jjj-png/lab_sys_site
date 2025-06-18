@@ -17,6 +17,7 @@
         <router-link to="/admin/category" class="submenu">实验室分类</router-link>
         <router-link to="/admin/labs" class="submenu">实验室信息</router-link>
         <router-link to="/admin/records" class="submenu">预约记录</router-link>
+        <router-link to="/admin/repairs" class="submenu">报修记录</router-link> 
       </nav>
 
       <button class="collapse-btn" @click="collapsed = !collapsed">

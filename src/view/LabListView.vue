@@ -196,7 +196,7 @@
 </template>
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
+import request from '@/Util/request'
 import { ElTimePicker } from 'element-plus'
 
 
@@ -204,7 +204,7 @@ import { ElTimePicker } from 'element-plus'
 const admins = ref([])
 
 const loadAdmins = async () => {
-  const { data } = await axios.get('/api/user/lab-admins')
+  const { data } = await request.get('/user/lab-admins')
   admins.value = data
 }
 
@@ -212,7 +212,7 @@ const loadAdmins = async () => {
 const labTypes = ref([])
 
 const loadLabTypes = async () => {
-  const { data } = await axios.get('/api/category')
+  const { data } = await request.get('/category')
   labTypes.value = data
     .filter(item => item.typeId !== 0) // ❌ 过滤掉“其他实验室”
     .map(item => ({
@@ -228,7 +228,7 @@ const page = ref(1)
 const pageSize = 5
 
 const loadLabs = async () => {
-  const { data } = await axios.get('/api/labs')
+  const { data } = await request.get('/labs')
   labs.value = data
 }
 
@@ -267,7 +267,7 @@ const saveAdd = async () => {
   if (!addForm.value.labAdminId) {
     return alert('请选择实验室管理员')
   }
-  await axios.post('/api/labs', addForm.value)
+  await request.post('/labs', addForm.value)
   showAddDialog.value = false
   await loadLabs()
 }
@@ -292,7 +292,7 @@ const openEdit = (lab) => {
 }
 
 const saveEdit = async () => {
-  await axios.put(`/api/labs/${editForm.value.labId}`, editForm.value)
+  await request.put(`/labs/${editForm.value.labId}`, editForm.value)
   showEditDialog.value = false
   await loadLabs()
 }
@@ -300,7 +300,7 @@ const saveEdit = async () => {
 /* ================== 删除实验室 ================== */
 const remove = async (id) => {
   if (confirm('确认删除该实验室吗？')) {
-    await axios.delete(`/api/labs/${id}`)
+    await request.delete(`/labs/${id}`)
     await loadLabs()
   }
 }

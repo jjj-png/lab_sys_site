@@ -49,15 +49,20 @@ const handleLogin = async () => {
     })
     if (res.data.code === 200) {
       message.value = '登录成功！'
-      // 根据角色跳转
-      if (form.role === '2') {
-        router.push('/admin') // ✅ 跳转到系统管理员页面
-      } else if (form.role === '3') {
-        router.push('/lab-admin') // 假设你有实验室管理员页面
-      } else {
-        router.push('/student') // 学生页面
-      }
-    } else {
+
+  // ✅ 保存后端返回的 token（字段视后端接口返回格式调整）
+      localStorage.setItem('token', res.data.data.token)
+
+  // 根据角色跳转
+  if (form.role === '2') {
+    router.push('/admin')
+  } else if (form.role === '3') {
+    router.push('/lab-admin')
+  } else {
+    router.push('/student')
+  }
+}
+ else {
       message.value = res.data.msg || '登录失败'
     }
   } catch (error) {

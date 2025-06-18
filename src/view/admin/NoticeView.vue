@@ -60,7 +60,7 @@
 
 <script setup>
 import { ref, computed, reactive, onMounted, watch } from 'vue'
-import axios from 'axios'
+import request from '@/Util/request'
 import { ElMessage } from 'element-plus'
 
 const notices = ref([])
@@ -81,7 +81,7 @@ const form = reactive({
 const dialogTitle = computed(() => editMode.value ? '编辑公告' : '发布公告')
 
 const load = async () => {
-  const res = await axios.get('/api/notice')
+  const res = await request.get('/notice')
   notices.value = res.data
 }
 
@@ -113,11 +113,11 @@ const openEdit = (row) => {
 const save = async () => {
   if (!form.title || !form.content) return alert('请填写完整内容')
   if (editMode.value) {
-    await axios.put(`/api/notice/${form.id}`, form)
+    await request.put(`/notice/${form.id}`, form)
     ElMessage.success('公告修改成功')
   } else {
     form.createdTime = new Date().toISOString().split('T')[0]
-    await axios.post('/api/notice', form)
+    await request.post('/notice', form)
     ElMessage.success('公告发布成功')
   }
   dialogVisible.value = false
@@ -127,7 +127,7 @@ const save = async () => {
 
 const remove = async (id) => {
   if (confirm('确认删除该公告？')) {
-    await axios.delete(`/api/notice/${id}`)
+    await request.delete(`/notice/${id}`)
     ElMessage.success('公告删除成功')
     await load()
   }

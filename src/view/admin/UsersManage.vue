@@ -48,6 +48,7 @@
 <script setup>
 import { reactive, ref, onMounted } from 'vue'
 import axios from 'axios'
+import request from '@/Util/request'
 
 const users = ref([])
 const showDialog = ref(false)
@@ -68,7 +69,7 @@ const form = reactive({
 
 /* 获取系统管理员列表 */
 const load = async () => {
-  const { data } = await axios.get('/api/user/admins')
+  const { data } = await request.get('/user/admins')
 
   users.value = data
 }
@@ -105,14 +106,14 @@ const save = async () => {
         return
       }
     }
-    await axios.put(`/api/user/${payload.userId}`, payload)
+    await request.put(`/user/${payload.userId}`, payload)
   } else {
     /* --------- 新增逻辑 --------- */
     if (!payload.password) {
       alert('密码不能为空')
       return
     }
-    await axios.post('/api/user', payload)
+    await request.post('/user', payload)
   }
 
   showDialog.value = false
@@ -122,7 +123,7 @@ const save = async () => {
 /* 删除 */
 const del = async (id) => {
   if (confirm('确定删除?')) {
-    await axios.delete(`/api/user/${id}`)
+    await request.delete(`/user/${id}`)
     await load()
   }
 }

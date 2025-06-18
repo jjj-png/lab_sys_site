@@ -15,8 +15,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 
+import request from '@/Util/request'
 /* ① 图片映射表 —— typeId 对应图片 */
 import imgComputer    from '@/assets/computer.jpg'
 import imgElectronics from '@/assets/electronics.jpg'
@@ -32,7 +32,7 @@ const imgMap = {
 const categories = ref([])
 
 const load = async () => {
-  const { data } = await axios.get('/api/category')   // <- 对应后端
+  const { data } = await request.get('/category')   // <- 对应后端
   categories.value = data.map(cat => ({
     id:   cat.typeId,
     name: cat.typeName,

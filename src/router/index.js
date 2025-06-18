@@ -45,6 +45,10 @@ const routes = [
         {
          path: '/admin/records',
          component: () => import('@/view/RecordsView.vue')
+        },
+        {
+        path: '/admin/repairs',
+        component: () => import('@/view/RepairsView.vue')
         }
         // 预留：以后新页面直接加
         // { path: 'user', name: 'UserManage', component: () => import('@/view/admin/UserManage.vue') },

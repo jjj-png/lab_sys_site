@@ -44,14 +44,14 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
 
+import request from '@/Util/request'
 const records = ref([])
 const page = ref(1)
 const pageSize = 8
 
 const loadRecords = async () => {
-  const { data } = await axios.get('/api/reservations')
+  const { data } = await request.get('/reservations')
   records.value = data
 }
 onMounted(loadRecords)
