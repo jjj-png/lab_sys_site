@@ -26,7 +26,7 @@ export interface ReservationInfo {
   userId: number,
   labId: number,
   operationTime: string,
-  status: string,
+  status: number,
   equipmentStatus: string,
   labAdminId: number,
   createdAt: string,
