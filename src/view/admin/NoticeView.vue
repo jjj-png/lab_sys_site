@@ -7,38 +7,45 @@
     </div>
 
     <!-- 公告表格 -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>标题</th>
-          <th>内容</th>
-          <th>创建时间</th>
-          <th>创建人</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in pagedList" :key="item.id">
-          <td>{{ item.id }}</td>
-          <td>{{ item.title }}</td>
-          <td class="content-cell">{{ item.content }}</td>
-          <td>{{ item.createdTime }}</td>
-          <td>{{ item.creator }}</td>
-          <td>
-            <button class="btn small" @click="openEdit(item)">编辑</button>
-            <button class="btn small danger" @click="remove(item.id)">删除</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>标题</th>
+        <th>内容</th>
+        <th>创建时间</th>
+        <th>创建人</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in pagedList" :key="item.id">
+        <td>{{ item.id }}</td>
+        <td>{{ item.title }}</td>
+        <td class="content-cell">{{ item.content }}</td>
+        <td>{{ item.createdTime }}</td>
+        <td>{{ item.creator }}</td>
+        <td>
+          <button class="btn small" @click="openEdit(item)">编辑</button>
+          <button class="btn small danger" @click="remove(item.id)">删除</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-    <!-- 分页 -->
-    <div v-if="pageTotal > 1" class="pagination">
-      <button @click="pageIndex--" :disabled="pageIndex === 1">上一页</button>
-      <span v-for="i in pageTotal" :key="i" :class="{ current: i === pageIndex }" @click="pageIndex = i">{{ i }}</span>
-      <button @click="pageIndex++" :disabled="pageIndex === pageTotal">下一页</button>
-    </div>
+  <!-- 分页 -->
+  <div v-if="pageTotal > 1" class="pagination">
+    <button @click="pageIndex--" :disabled="pageIndex === 1">上一页</button>
+    <span
+      v-for="i in pageTotal"
+      :key="i"
+      :class="{ current: i === pageIndex }"
+      @click="pageIndex = i"
+    >{{ i }}</span>
+    <button @click="pageIndex++" :disabled="pageIndex === pageTotal">下一页</button>
+  </div>
+</div>
 
     <!-- 自定义弹窗 -->
     <div class="modal" v-if="dialogVisible">
@@ -187,10 +194,20 @@ onMounted(load)
   margin-right: 5px;
 }
 
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* 表格和分页都右对齐 */
+  margin-top: 0px;
+  margin: -10px auto 0 auto;
+}
+
+
+
 .table {
   width: auto;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin: 100px auto 0 auto; /* 顶部 100px，其余自动居中 */
 }
 
 .table th, .table td {

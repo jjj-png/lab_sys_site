@@ -17,7 +17,8 @@
         <router-link to="/admin/category" class="submenu">实验室分类</router-link>
         <router-link to="/admin/labs" class="submenu">实验室信息</router-link>
         <router-link to="/admin/records" class="submenu">预约记录</router-link>
-        <router-link to="/admin/repairs" class="submenu">报修记录</router-link> 
+        <router-link to="/admin/repairs" class="submenu">报修记录</router-link>
+        <router-link to="/admin/points" class="submenu">积分信息</router-link>  
       </nav>
 
       <button class="collapse-btn" @click="collapsed = !collapsed">
@@ -66,6 +67,7 @@ const titleMap = {
   '/admin/labs': '实验室信息',
   '/admin/records': '预约记录',
   '/admin/repairs': '报修记录',
+  '/admin/points': '积分信息',
 }
 const currentTitle = computed(() => {
   return titleMap[route.path] || '未知页面'
