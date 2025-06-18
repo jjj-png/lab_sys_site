@@ -28,8 +28,9 @@
     <!-- 主体 -->
     <section class="main">
       <header class="header">
-        <span>首页 &gt; 系统首页</span>
-        <span>管理员</span>
+        <span>首页 &gt;  {{ currentTitle }}</span>
+        <span>系统管理员</span>
+        <button class="logout-btn" @click="logout">退出</button>
       </header>
 
       <!-- 子路由渲染 -->
@@ -39,8 +40,37 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref ,computed} from 'vue'
+import { useRouter,useRoute } from 'vue-router'
+
 const collapsed = ref(false)
+const router = useRouter()
+const route = useRoute()
+
+
+const logout = () => {
+  // 清除 token 或用户信息（如存储在 localStorage/sessionStorage）
+  localStorage.removeItem('token')
+  // 可选：也可以清除用户信息，比如 localStorage.removeItem('user')
+
+  // 跳转到登录页
+  router.push('/login')
+}
+const titleMap = {
+ '/admin/home': '系统首页',
+  '/admin/users': '系统管理员',
+  '/admin/lab-admin': '实验室管理员',
+  '/admin/students': '学生信息',
+  '/admin/notice': '公告信息',
+  '/admin/category': '实验室分类',
+  '/admin/labs': '实验室信息',
+  '/admin/records': '预约记录',
+  '/admin/repairs': '报修记录',
+}
+const currentTitle = computed(() => {
+  return titleMap[route.path] || '未知页面'
+})
+
 </script>
 
 <style scoped>
@@ -154,5 +184,34 @@ nav {
   
   
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f5f5;
+  padding: 10px 20px;
+  font-size: 14px;
+}
 
+.header .right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logout-btn {
+  padding: 4px 10px;
+  background-color: #f56c6c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #dd4b39;
+}
 </style>
+
+
+
