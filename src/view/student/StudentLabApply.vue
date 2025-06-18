@@ -53,7 +53,7 @@ const currentLab = ref<Partial<LabInfo>>({});
 
 const getAvailableLabs = async () => {
   try {
-    const response = await axios.get('/api/labs')
+    const response = await axios.get('/api/labs/available')
     availableLabs.value = response.data
   } catch (error) {
     console.error(error)
