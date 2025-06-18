@@ -6,6 +6,10 @@ import SystemHome from '@/view/admin/SystemHome.vue'
 import UserManage from '@/view/admin/UsersManage.vue'
 import LabAdminManage from '@/view/admin/LabAdminManage.vue'
 import AdminStudents from '@/view/admin/AdminStudents.vue' 
+import LabAdminHome from '@/view/lab-admin/LabAdminHome.vue' 
+import LabAdminLayout from '@/view/lab-admin/LabAdminLayout.vue'
+import LabInfoManage from '@/view/lab-admin/LabInfoManage.vue'
+import StudentLayout from '../view/student/StudentLayout.vue'
 
 
 const routes = [
@@ -50,6 +54,19 @@ const routes = [
       { path: 'labs', name: 'LabInfoLabs', component: LabInfoManage },
     
       { path: 'records', name: 'ReservationRecord', component: () => import('@/view/lab-admin/ReservationRecordManage.vue') }
+    ]
+  }
+  ,
+
+  {
+    path: '/student',
+    component: StudentLayout,
+    meta: { requiresStudent: true },
+    children: [
+      { path: '', redirect: '/student/home'},
+      { path: 'home', name: 'StudentHome', component: () => import('@/view/student/StudentHome.vue') },
+      { path: 'lab-apply', name: 'StudentLabApply', component: () => import('@/view/student/StudentLabApply.vue') },
+      { path: 'repair', name: 'StudentRepair', component: () => import('@/view/student/StudentRepair.vue') },
     ]
   }
 ]
