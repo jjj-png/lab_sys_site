@@ -62,6 +62,7 @@ const updateLabStatus = async (labId: number, status: number) => {
     selectedLab.status = status
     const response = await axios.put(`/api/labs/${labId}`, selectedLab)
     console.log(response.data)
+    getAvailableLabs()
   } catch (error) {
     console.error(error)
   }
