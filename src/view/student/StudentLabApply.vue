@@ -40,7 +40,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import request from '../../Util/request'
+
+import request from '@/Util/request'
 import { ElMessage } from 'element-plus';
 import { type loginResponse, type LabInfo, type ReservationInfo } from '../../type'
 

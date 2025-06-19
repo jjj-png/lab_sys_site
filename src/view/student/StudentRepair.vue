@@ -52,7 +52,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import request from '../../Util/request'
+
+import request from '@/Util/request'
 import { ElMessage, ElMessageBox } from 'element-plus'; // 引入 ElMessage
 import { type loginResponse, type LabInfo, type RepairInfo } from '../../type';
 

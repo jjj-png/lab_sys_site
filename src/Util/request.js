@@ -9,7 +9,7 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   const token = localStorage.getItem('token')
   if (token) {
-    config.headers['token'] = token  // 后端拦截器中读取的是这个字段
+    config.headers['token'] = token  // 后拦端截器中读取的是这个字段
   }
   return config
 }, error => {
