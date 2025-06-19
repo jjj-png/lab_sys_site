@@ -106,7 +106,7 @@ const pagedList = computed(() => {
 const openAdd = () => {
   editMode.value = false
   Object.assign(form, {
-    id: null, title: '', content: '', createdTime: '', creator: 'admin'
+    id: null, title: '', content: '', createdTime: '', creator: 'sysadmin001'
   })
   dialogVisible.value = true
 }
