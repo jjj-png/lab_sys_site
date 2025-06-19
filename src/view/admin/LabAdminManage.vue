@@ -36,7 +36,8 @@
         <input v-model="form.username" placeholder="用户名" />
         <input v-model="form.password" type="password" placeholder="密码" />
         <input v-model="form.name" placeholder="姓名" />
-        <input v-model="form.phone" placeholder="电话" />
+        <input v-model="form.phone"placeholder="电话"maxlength="11"@input="onPhoneInput"/>
+
         <input v-model="form.email" placeholder="邮箱" />
         <div class="actions">
           <button @click="save">保存</button>
@@ -83,11 +84,23 @@ const openEdit = (a) => {
   Object.assign(form, { ...a, password:'' })
   dialog.value = true
 }
+const onPhoneInput = () => {
+  form.phone = form.phone.replace(/\D/g, '')
+}
+
+// 校验 11 位手机号是否合法（以 1 开头）
+const isValidPhone = (phone) => /^1\d{10}$/.test(phone)
+
 
 /* 保存 */
 const save = async () => {
   // 拷贝一份表单数据，避免直接修改 form
   const payload = { ...form }
+    if (!isValidPhone(form.phone)) {
+    alert('请输入合法的11位手机号（以1开头）')
+    return
+  }
+
 
   if (editMode.value) {
     // 取得数据库中的旧密码

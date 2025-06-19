@@ -39,7 +39,7 @@
         <input v-model="form.username" placeholder="用户名" />
         <input v-model="form.password" type="password" placeholder="密码" />
         <input v-model="form.name" placeholder="姓名" />
-        <input v-model="form.phone" placeholder="电话" />
+        <input v-model="form.phone"placeholder="电话"maxlength="11"@input="onPhoneInput"/>
         <input v-model="form.email" placeholder="邮箱" />
         <input v-model.number="form.points" placeholder="积分" type="number" />
         <div class="actions">
@@ -108,9 +108,19 @@ const openEdit = (s) => {
   Object.assign(form, { ...s, password: '' }) // 清空密码输入框
   dialog.value = true
 }
+const onPhoneInput = () => {
+  form.phone = form.phone.replace(/\D/g, '')
+}
+
+const isValidPhone = (phone) => /^1\d{10}$/.test(phone)
+
 
 const save = async () => {
   const payload = { ...form }
+  if (!isValidPhone(form.phone)) {
+    alert('请输入合法的11位手机号（以1开头）')
+    return
+  }
 
   if (editMode.value) {
     const old = students.value.find(s => s.userId === payload.userId)

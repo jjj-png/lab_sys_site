@@ -35,7 +35,7 @@
         <input v-model="form.username" placeholder="用户名" />
         <input v-model="form.password" type="password" placeholder="密码" />
         <input v-model="form.name" placeholder="姓名" />
-        <input v-model="form.phone" placeholder="电话" />
+        <input v-model="form.phone" placeholder="电话" maxlength="11" @input="onPhoneInput"/>
         <input v-model="form.email" placeholder="邮箱" />
         <div class="actions">
           <button @click="save">保存</button>
@@ -63,6 +63,8 @@ const originalPassword = ref('')
 // 获取当前用户，判断是否为超级管理员
 const currentUser = JSON.parse(localStorage.getItem('userInfo') || '{}')
 const isSuperAdmin = currentUser.username === 'sysadmin001'
+
+
 
 // 表单
 const form = reactive({
@@ -99,6 +101,15 @@ const openAdd = () => {
   showDialog.value = true
 }
 
+// 只允许输入数字
+const onPhoneInput = (e) => {
+  form.phone = form.phone.replace(/\D/g, '')
+}
+
+// 手机号格式校验
+const isValidPhone = (phone) => /^1\d{10}$/.test(phone)
+
+
 /* 打开编辑表单 */
 const openEdit = (u) => {
   if (!isSuperAdmin) return
@@ -112,6 +123,10 @@ const openEdit = (u) => {
 const save = async () => {
   if (!isSuperAdmin) return
 
+  if (!isValidPhone(form.phone)) {
+  alert('请输入合法的11位手机号（以1开头）')
+  return
+}
   const payload = { ...form }
 
   if (editMode.value) {
