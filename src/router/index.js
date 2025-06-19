@@ -87,7 +87,7 @@ const routes = [
       { path: 'lab-apply', name: 'StudentLabApply', component: () => import('@/view/student/StudentLabApply.vue') },
       { path: 'repair', name: 'StudentRepair', component: () => import('@/view/student/StudentRepair.vue') },
     ]
-  }
+  },
 
   {
     path: '/student',
