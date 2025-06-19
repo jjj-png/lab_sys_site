@@ -19,8 +19,11 @@
     <!-- 主体 -->
     <section class="main">
       <header class="header">
-        <span>首页 &gt; 系统首页</span>
-        <span>实验室管理员</span>
+        
+        <div class="user-info">
+          <span>实验室管理员</span>
+          <button class="logout-btn" @click="logout">退出</button>
+        </div>
       </header>
 
       <!-- 子路由渲染 -->
@@ -31,7 +34,13 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 const collapsed = ref(false)
+const router = useRouter()
+const logout = () => {
+  localStorage.removeItem('token')
+  router.push('/login')
+}
 </script>
 
 <style scoped>
@@ -94,6 +103,28 @@ nav {
   font-weight: bold;
 }
 
+/* 用户信息和退出按钮 */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.logout-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #d9363e;
+}
+
 .group-title {
   padding: 8px 16px;
   font-size: 13px;
@@ -112,7 +143,7 @@ nav {
   transition: transform 0.3s ease;
 }
 
-/* 图标旋转（可选） */
+/* 图标旋转 */
 .sider.collapsed .collapse-btn {
   transform: rotate(180deg);
 }
