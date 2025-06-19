@@ -139,14 +139,14 @@
 
     <el-form-item label="开放时间">
   <el-time-picker
-    v-model="editForm.startTime"
+    v-model="addForm.startTime"
     placeholder="开始时间"
     format="HH:mm:ss"
     value-format="HH:mm:ss"
   />
   -
   <el-time-picker
-    v-model="editForm.endTime"
+    v-model="addForm.endTime"
     placeholder="结束时间"
     format="HH:mm:ss"
     value-format="HH:mm:ss"

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const service = axios.create({
-  baseURL: '/api',  // 根据你设置的代理调整
+  baseURL: '/api',  
   timeout: 5000
 })
 

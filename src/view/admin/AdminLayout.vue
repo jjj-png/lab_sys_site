@@ -50,9 +50,7 @@ const route = useRoute()
 
 
 const logout = () => {
-  // 清除 token 或用户信息（如存储在 localStorage/sessionStorage）
   localStorage.removeItem('token')
-  // 可选：也可以清除用户信息，比如 localStorage.removeItem('user')
 
   // 跳转到登录页
   router.push('/login')
