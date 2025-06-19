@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import request from '../../Util/request'
 import { ElMessage, ElMessageBox } from 'element-plus'; // 引入 ElMessage
 import { type loginResponse, type LabInfo, type RepairInfo } from '../../type';
 
@@ -66,7 +66,7 @@ const currentLab = ref<Partial<LabInfo>>({});
 
 const getAvailableLabs = async () => {
   try {
-    const response = await axios.get('/api/labs/all');
+    const response = await request.get('/labs/all');
     allLabs.value = response.data;
   } catch (error) {
     console.error(error);
@@ -84,7 +84,7 @@ onMounted(() => {
 
 const getLabById = async (labId: number) => {
   try {
-    const response = await axios.get(`/api/labs/${labId}`);
+    const response = await request.get(`/labs/${labId}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -100,7 +100,7 @@ const updateLabStatus = async (labId: number, status: number) => {
       return;
     }
     selectedLab.status = status;
-    await axios.put(`/api/labs/${labId}`, selectedLab);
+    await request.put(`/labs/${labId}`, selectedLab);
     getAvailableLabs();
   } catch (error) {
     console.error(error);
@@ -145,7 +145,7 @@ const submitRepair = async () => {
     };
 
     // 发送POST请求
-    await axios.post('/api/repair', repairData);
+    await request.post('/repair', repairData);
 
     await updateLabStatus(currentLab.value.labId, 2);
 

@@ -29,6 +29,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import request from '@/Util/request'
 
 const toggleStatus = async (id) => {
   if (confirm('确认切换状态？')) {
@@ -36,12 +37,11 @@ const toggleStatus = async (id) => {
     await load()
   }
 }
-import axios from 'axios'
 
 const records = ref([])
 
 const load = async () => {
-    const res = await axios.get('/lab-admin/reservation-records')
+    const res = await request.get('/lab-admin/reservation-records')
 
     records.value = Array.isArray(res.data) ? res.data.map(item => ({
       ...item,
@@ -59,7 +59,7 @@ const viewDetails = (r) => {
 const cancelReservation = async (id) => {
   if (confirm('确认取消预约？')) {
     try {
-      await axios.delete(`/api/reserve/${id}`);
+      await request.delete(`/reserve/${id}`);
       await load();
       alert('预约已成功取消');
     } catch (error) {

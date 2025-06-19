@@ -16,8 +16,7 @@
 
 <script setup>
 import { reactive } from 'vue'
-import axios from 'axios'
-
+import request from '@/Util/request'
 const form = reactive({
   lab_name: '',
   description: '',
@@ -26,7 +25,7 @@ const form = reactive({
 
 const save = async () => {
   const payload = { ...form }
-  await axios.post('/lab-admin/lab-info', payload)
+  await request.post('/lab-admin/lab-info', payload)
 }
 </script>
 

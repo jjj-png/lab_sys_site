@@ -61,7 +61,7 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
-import axios from 'axios'
+import request from '@/Util/request'
 import { ElMessage } from 'element-plus'
 
 const labs = ref([])
@@ -91,7 +91,7 @@ const form = reactive({
 })
 
 const load = async () => {
-  const res = await axios.get('/lab-admin/labs')
+  const res = await request.get('/lab-admin/labs')
   labs.value = Array.isArray(res.data.data) ? res.data.data : res.data
 }
 
@@ -107,7 +107,7 @@ const openReservationDialog = async (l) => {
   form.labEndTime = l.endTime;
   
   // 获取最新预约ID
-  const res = await axios.get('/lab-admin/reservation-records')
+  const res = await request.get('/lab-admin/reservation-records')
   // 调试日志：检查返回数据结构
   console.log('原始返回数据:', res);
   console.log('预约记录数组:', res.data);
@@ -195,7 +195,7 @@ const save = async () => {
 
   try {
     // 直接使用后端完整URL测试端口和路径
-    await axios.post('http://localhost:8080/reserve', {
+    await request.post('http://localhost:8080/reserve', {
         reservationId: form.reservationId,
         userId: form.studentId,
         status: 1,
@@ -220,7 +220,7 @@ const save = async () => {
 
 const remove = async (id) => {
   if (confirm('确认删除？')) {
-    await axios.delete(`/lab-admin/labs/${id}`)
+    await request.delete(`/lab-admin/labs/${id}`)
     await load()
   }
 }

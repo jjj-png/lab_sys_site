@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import request from '../../Util/request'
 import { ElMessage } from 'element-plus';
 import { type loginResponse, type LabInfo, type ReservationInfo } from '../../type'
 
@@ -53,7 +53,7 @@ const currentLab = ref<Partial<LabInfo>>({});
 
 const getAvailableLabs = async () => {
   try {
-    const response = await axios.get('/api/labs/available')
+    const response = await request.get('/labs/available')
     availableLabs.value = response.data
   } catch (error) {
     console.error(error)
@@ -73,7 +73,7 @@ onMounted(
 
 const getLabById = async (labId: number) => {
   try {
-    const response = await axios.get(`/api/labs/${labId}`)
+    const response = await request.get(`/labs/${labId}`)
     console.log(response.data)
     return response.data
   } catch (error) {
@@ -90,7 +90,7 @@ const updateLabStatus = async (labId: number, status: number) => {
       return
     }
     selectedLab.status = status
-    await axios.put(`/api/labs/${labId}`, selectedLab)
+    await request.put(`/labs/${labId}`, selectedLab)
     getAvailableLabs()
   } catch (error) {
     ElMessage.error(error)
@@ -121,7 +121,7 @@ const submitReservation = async () => {
       updatedAt: now
     };
 
-    await axios.post('/api/reserve', reserveData);
+    await request.post('/reserve', reserveData);
     await updateLabStatus(currentLab.value.labId, 2);
 
     ElMessage.success('预约成功');

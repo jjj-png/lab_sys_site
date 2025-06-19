@@ -23,7 +23,7 @@
     <section class="main">
       <header class="header">
       <span>首页 &gt; 用户首页</span>
-      <span>学生</span>
+      <button class="btn btn-primary" @click="logout()">退出登录</button>
       </header>
 
       <!-- 子路由渲染 -->
@@ -34,7 +34,20 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+// 折叠侧边栏
 const collapsed = ref(false)
+
+const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('userInfo')
+
+  // 跳转到登录页
+  router.push('/login')
+}
 </script>
 
 <style scoped>
