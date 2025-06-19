@@ -29,10 +29,10 @@
     <!-- 主体 -->
     <section class="main">
       <header class="header">
-        <span>首页 &gt;  {{ currentTitle }}</span>
-        <span>系统管理员</span>
-        <button class="logout-btn" @click="logout">退出</button>
-      </header>
+      <span>首页 &gt;  {{ currentTitle }}</span>
+      <span>欢迎，{{ username }}</span>
+      <button class="logout-btn" @click="logout">退出</button>
+</header>
 
       <!-- 子路由渲染 -->
       <router-view class="page-view" />
@@ -48,10 +48,12 @@ const collapsed = ref(false)
 const router = useRouter()
 const route = useRoute()
 
+const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
+const username = userInfo.username || '未知用户'
+
 
 const logout = () => {
   localStorage.removeItem('token')
-
   // 跳转到登录页
   router.push('/login')
 }

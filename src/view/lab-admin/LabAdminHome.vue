@@ -9,10 +9,11 @@
 import { onMounted } from 'vue'
 import * as echarts from 'echarts'
 import axios from 'axios'
+import request from '@/Util/request'
 
 onMounted(async () => {
   // 拉数据
-  const res = await axios.get('/api/admin/lab-status')
+  const res = await request.get('/admin/lab-status')
   const result = res.data.data  
   const idle = result['空闲中'] ?? 0
   const used = result['使用中'] ?? 0
