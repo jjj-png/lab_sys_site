@@ -2,6 +2,7 @@
   <div class="users-page">
     <h2>系统管理员列表</h2>
 
+
     <!-- 只有超级管理员能看到 -->
     <button class="btn-add" @click="openAdd" v-if="isSuperAdmin">新增管理员</button>
 
@@ -64,7 +65,7 @@ const originalPassword = ref('')
 const currentUser = JSON.parse(localStorage.getItem('userInfo') || '{}')
 const isSuperAdmin = currentUser.username === 'sysadmin001'
 
-
+//
 
 // 表单
 const form = reactive({
