@@ -85,20 +85,10 @@ const routes = [
       { path: 'home', name: 'StudentHome', component: () => import('@/view/student/StudentHome.vue') },
       { path: 'lab-apply', name: 'StudentLabApply', component: () => import('@/view/student/StudentLabApply.vue') },
       { path: 'repair', name: 'StudentRepair', component: () => import('@/view/student/StudentRepair.vue') },
+      { path: 'reservations', name: 'ReservationRecords', component: () => import('@/view/student/StudentReservations.vue')}
+    
     ]
   },
-
-  {
-    path: '/student',
-    component: StudentLayout,
-    meta: { requiresStudent: true },
-    children: [
-      { path: '', redirect: '/student/home'},
-      { path: 'home', name: 'StudentHome', component: () => import('@/view/student/StudentHome.vue') },
-      { path: 'lab-apply', name: 'StudentLabApply', component: () => import('@/view/student/StudentLabApply.vue') },
-      { path: 'repair', name: 'StudentRepair', component: () => import('@/view/student/StudentRepair.vue') },
-    ]
-  }
 ]
 
 const router = createRouter({
