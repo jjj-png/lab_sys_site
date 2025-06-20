@@ -43,7 +43,7 @@ const collapsed = ref(false)
 
 const logout = () => {
   localStorage.removeItem('token')
-  localStorage.removeItem('userInfo')
+  // localStorage.removeItem('userInfo')
 
   // 跳转到登录页
   router.push('/login')
